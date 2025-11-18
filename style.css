@@ -1,0 +1,488 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: 'Arial Black', sans-serif;
+    height: 100vh;
+}
+
+/* Film Grain Effect */
+.film-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='6.5' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1000;
+    animation: grain 0.3s steps(4) infinite;
+}
+
+@keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -5%); }
+    20% { transform: translate(5%, -10%); }
+    30% { transform: translate(-10%, 5%); }
+    40% { transform: translate(10%, 10%); }
+    50% { transform: translate(-5%, 0%); }
+    60% { transform: translate(5%, 5%); }
+    70% { transform: translate(0%, -5%); }
+    80% { transform: translate(-10%, -10%); }
+    90% { transform: translate(10%, 0%); }
+}
+
+/* Vignette */
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 150px 50px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Scene Container */
+.scene-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.scene.active {
+    opacity: 1;
+}
+
+.scene-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(180deg, #0a1428 0%, #000814 50%, #000000 100%);
+}
+
+/* Scene 1: Running through forest */
+.runner {
+    position: absolute;
+    width: 120px;
+    height: 180px;
+    background: #000;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: polygon(50% 0%, 35% 15%, 30% 40%, 20% 70%, 25% 100%, 45% 85%, 50% 100%, 55% 85%, 75% 100%, 80% 70%, 70% 40%, 65% 15%);
+    animation: running 0.3s infinite;
+}
+
+@keyframes running {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.sprint {
+    animation: sprinting 0.15s infinite;
+}
+
+@keyframes sprinting {
+    0%, 100% { transform: translateX(-50%) translateY(0) scaleX(1.1); }
+    50% { transform: translateX(-50%) translateY(-15px) scaleX(0.95); }
+}
+
+.trees-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 0, 0, 0.4) 50px, rgba(0, 0, 0, 0.4) 80px);
+    animation: trees-scroll 0.8s linear infinite;
+}
+
+@keyframes trees-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-80px); }
+}
+
+.fog {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(200, 200, 220, 0.1), transparent);
+    animation: fog-drift 3s ease-in-out infinite;
+}
+
+@keyframes fog-drift {
+    0%, 100% { opacity: 0.3; transform: translateX(0); }
+    50% { opacity: 0.5; transform: translateX(20px); }
+}
+
+/* Scene 2: Close-up face */
+.closeup {
+    background: radial-gradient(circle at center, #1a1a2e 0%, #000000 70%);
+}
+
+.face-silhouette {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #0d0d0d;
+    clip-path: ellipse(45% 50% at 50% 45%);
+    border-left: 3px solid rgba(100, 100, 120, 0.3);
+    animation: breathing 1s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.02); }
+}
+
+.sweat-drop {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: rgba(200, 220, 255, 0.4);
+    border-radius: 50% 50% 50% 0;
+    top: 35%;
+    left: 60%;
+    animation: sweat-fall 1.5s ease-in forwards;
+}
+
+@keyframes sweat-fall {
+    0% { top: 35%; opacity: 0.8; }
+    100% { top: 80%; opacity: 0; }
+}
+
+/* Scene 3: Danger behind */
+.shadow-figure {
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    background: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    clip-path: polygon(50% 0%, 30% 20%, 20% 50%, 15% 100%, 35% 90%, 50% 100%, 65% 90%, 85% 100%, 80% 50%, 70% 20%);
+    filter: blur(3px);
+    animation: loom 1s ease-in-out infinite;
+}
+
+@keyframes loom {
+    0%, 100% { transform: translate(-50%, -50%) scale(1.5); }
+    50% { transform: translate(-50%, -50%) scale(1.7); }
+}
+
+.red-eyes {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    top: 42%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.red-eyes::before,
+.red-eyes::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: radial-gradient(circle, #ff0000, #8b0000);
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+    animation: glow-pulse 0.5s ease-in-out infinite;
+}
+
+.red-eyes::before {
+    left: 20px;
+}
+
+.red-eyes::after {
+    right: 20px;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.9); }
+}
+
+/* Scene 4: Speed blur */
+.speed-blur {
+    background: linear-gradient(90deg, #000814 0%, #1a1a2e 50%, #000814 100%);
+}
+
+.motion-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255, 255, 255, 0.1) 100px, rgba(255, 255, 255, 0.1) 102px);
+    animation: motion-blur 0.2s linear infinite;
+}
+
+@keyframes motion-blur {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100px); }
+}
+
+/* Scene 5: Extreme close-up eyes */
+.extreme-closeup {
+    background: radial-gradient(circle at center, #0f0f1e 0%, #000000 60%);
+}
+
+.eyes {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.eyes::before,
+.eyes::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 60% 50%, #ffffff 0%, #1a1a3e 20%, #000 60%);
+    border-radius: 50%;
+    border: 3px solid rgba(100, 100, 120, 0.5);
+    animation: eye-dart 2s ease-in-out infinite;
+}
+
+.eyes::before {
+    left: 30px;
+}
+
+.eyes::after {
+    right: 30px;
+}
+
+@keyframes eye-dart {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Scene 6: Stumble */
+.tilted {
+    transform: rotate(-15deg);
+    background: linear-gradient(135deg, #0a1428 0%, #000814 70%);
+}
+
+.falling {
+    animation: falling 0.5s ease-in forwards;
+}
+
+@keyframes falling {
+    0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    100% { transform: translateX(-50%) translateY(30px) rotate(45deg); }
+}
+
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, #0d1117, transparent);
+}
+
+/* Scene 7: Hand reaching */
+.hand-reaching {
+    position: absolute;
+    width: 150px;
+    height: 200px;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    clip-path: polygon(40% 0%, 45% 20%, 35% 30%, 30% 50%, 50% 60%, 70% 50%, 65% 30%, 55% 20%, 60% 0%);
+    animation: reach-up 1s ease-out forwards;
+}
+
+@keyframes reach-up {
+    0% { bottom: 20%; opacity: 0.5; }
+    100% { bottom: 40%; opacity: 1; }
+}
+
+/* Scene 8: Shadow closing in */
+.dark {
+    background: #000000;
+}
+
+.shadow-approach {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, #000000 80%);
+    animation: close-in 1.5s ease-in forwards;
+}
+
+@keyframes close-in {
+    0% { transform: scale(3); opacity: 0.3; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.vignette-strong {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 200px 100px rgba(0, 0, 0, 0.95);
+}
+
+/* Scene 9: Chaos */
+.chaos {
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 50%, #000000 100%);
+    animation: shake 0.1s infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-3px, 2px); }
+    50% { transform: translate(3px, -2px); }
+    75% { transform: translate(-2px, -3px); }
+}
+
+.desperate {
+    filter: blur(1px);
+    animation: desperate-run 0.1s infinite;
+}
+
+@keyframes desperate-run {
+    0%, 100% { transform: translateX(-50%) translateY(0) scaleX(1.2); }
+    50% { transform: translateX(-50%) translateY(-20px) scaleX(0.9); }
+}
+
+.branches {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(0, 0, 0, 0.6) 30px, rgba(0, 0, 0, 0.6) 35px);
+    animation: branches-cross 0.5s linear infinite;
+}
+
+@keyframes branches-cross {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(-35px) translateY(-35px); }
+}
+
+/* Scene 10: Title card */
+.black {
+    background: #000000;
+}
+
+.title-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.movie-title {
+    font-size: 80px;
+    color: #ffffff;
+    letter-spacing: 15px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: title-appear 1s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes title-appear {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.tagline {
+    font-size: 24px;
+    color: #888;
+    letter-spacing: 5px;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+    animation: tagline-fade 1.5s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+@keyframes tagline-fade {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Text overlays */
+.text-overlay {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.text-overlay h2 {
+    font-size: 60px;
+    color: #ffffff;
+    letter-spacing: 10px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(0, 0, 0, 0.8);
+    animation: text-flash 0.3s ease-out;
+}
+
+@keyframes text-flash {
+    0% { opacity: 0; transform: scale(1.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Flash effect */
+.flash-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 998;
+}
+
+.flash-effect.flash {
+    animation: flash 0.1s ease-out;
+}
+
+@keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movie-title {
+        font-size: 48px;
+        letter-spacing: 8px;
+    }
+
+    .tagline {
+        font-size: 18px;
+        letter-spacing: 3px;
+    }
+
+    .text-overlay h2 {
+        font-size: 36px;
+        letter-spacing: 6px;
+    }
+}

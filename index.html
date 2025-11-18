@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recap - Dark Forest Chase</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="film-grain"></div>
+
+    <div class="scene-container">
+        <!-- Scene 1: Running through forest -->
+        <div class="scene active" data-scene="1">
+            <div class="scene-content">
+                <div class="silhouette runner"></div>
+                <div class="trees-layer"></div>
+                <div class="fog"></div>
+            </div>
+            <div class="text-overlay fade-in">
+                <h2>ONE MAN</h2>
+            </div>
+        </div>
+
+        <!-- Scene 2: Close-up face (intense) -->
+        <div class="scene" data-scene="2">
+            <div class="scene-content closeup">
+                <div class="face-silhouette"></div>
+                <div class="sweat-drop"></div>
+            </div>
+            <div class="text-overlay fade-in">
+                <h2>ONE NIGHT</h2>
+            </div>
+        </div>
+
+        <!-- Scene 3: Danger behind -->
+        <div class="scene" data-scene="3">
+            <div class="scene-content">
+                <div class="shadow-figure"></div>
+                <div class="red-eyes"></div>
+            </div>
+            <div class="text-overlay fade-in">
+                <h2>NOWHERE TO HIDE</h2>
+            </div>
+        </div>
+
+        <!-- Scene 4: Running faster -->
+        <div class="scene" data-scene="4">
+            <div class="scene-content speed-blur">
+                <div class="silhouette runner sprint"></div>
+                <div class="motion-lines"></div>
+            </div>
+        </div>
+
+        <!-- Scene 5: Close-up eyes -->
+        <div class="scene" data-scene="5">
+            <div class="scene-content extreme-closeup">
+                <div class="eyes"></div>
+            </div>
+            <div class="text-overlay fade-in">
+                <h2>FEAR</h2>
+            </div>
+        </div>
+
+        <!-- Scene 6: Stumble -->
+        <div class="scene" data-scene="6">
+            <div class="scene-content tilted">
+                <div class="silhouette runner falling"></div>
+                <div class="ground"></div>
+            </div>
+        </div>
+
+        <!-- Scene 7: Hand reaching -->
+        <div class="scene" data-scene="7">
+            <div class="scene-content">
+                <div class="hand-reaching"></div>
+            </div>
+        </div>
+
+        <!-- Scene 8: Shadow closing in -->
+        <div class="scene" data-scene="8">
+            <div class="scene-content dark">
+                <div class="shadow-approach"></div>
+                <div class="vignette-strong"></div>
+            </div>
+            <div class="text-overlay fade-in">
+                <h2>NO ESCAPE</h2>
+            </div>
+        </div>
+
+        <!-- Scene 9: Final sprint -->
+        <div class="scene" data-scene="9">
+            <div class="scene-content chaos">
+                <div class="silhouette runner desperate"></div>
+                <div class="branches"></div>
+            </div>
+        </div>
+
+        <!-- Scene 10: Title card -->
+        <div class="scene" data-scene="10">
+            <div class="scene-content black">
+                <div class="title-card">
+                    <h1 class="movie-title">THE PURSUIT</h1>
+                    <p class="tagline">Some hunts never end</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flash-effect"></div>
+    <div class="vignette"></div>
+
+    <audio id="heartbeat" loop>
+        <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
